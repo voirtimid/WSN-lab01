@@ -6,7 +6,7 @@ temperature_data, temperature_data_2day, temperature_data_3day = read_data("temp
 humidity_data, humidity_data_2day, humidity_data_3day = read_data("humidity_data")
 
 temperature_thresholds = [round(i, 1) for i in range(10)]
-humidity_thresholds = [round(i * 2, 1) for i in range(10)]
+humidity_thresholds = [round(i, 1) for i in range(10)]
 
 mse_errors, reduced_transmission = dual_prediction_schema(temperature_data,
                                                           humidity_data, 1,
