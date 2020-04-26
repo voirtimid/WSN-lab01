@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def read_data(filename):
@@ -11,40 +12,19 @@ def read_data(filename):
     return measured_data, measured_data_every_2day, measured_data_every_3day
 
 
-def scatter_plot(data1, data2):
-    plt.scatter(data1, data2, alpha=0.5)
-    plt.title('Scatter plot pythonspot.com')
-    plt.xlabel('x')
-    plt.ylabel('y')
-    plt.show()
+def scatter_plot(data1, label):
+    x = np.array(list(map(lambda k: float(k.split(':')[0]), data1.keys())))
+    y = np.array(list(map(lambda k: float(k.split(':')[1]), data1.keys())))
+    mse_errors = np.array(list(data1.values()))
 
-
-def plot(data1, data2, data3, ylabel):
-    plt.subplot(xlabel='Threshold',
-                ylabel=ylabel,
-                title='Data for temperature in Skopje for the last 15 days!')
-    sorted_list = sorted(data1.items())
-    x, y = zip(*sorted_list)
-    plt.plot(x, y,
-             color='red',
-             label='moving_average (1)',
-             marker='o')
-
-    sorted_list = sorted(data2.items())
-    x, y = zip(*sorted_list)
-    plt.plot(x, y,
-             color='green',
-             label='moving_average (2)',
-             marker='o')
-
-    sorted_list = sorted(data3.items())
-    x, y = zip(*sorted_list)
-    plt.plot(x, y,
-             color='blue',
-             label='moving_average (3)',
-             marker='o')
-    plt.legend(loc='best')
-
+    plt.xticks(np.arange(np.amin(x), np.ceil(np.amax(x)) + 1))
+    plt.yticks(np.arange(np.amin(y), np.ceil(np.amax(y)) + 1))
+    plt.scatter(x, y, c=mse_errors, s=100)
+    plt.title(f'Data for temperature and humidity in Skopje!\n{label}')
+    plt.xlabel('Temperature thresholds')
+    plt.ylabel('Humidity thresholds')
+    plt.colorbar()
+    plt.savefig(f'{label}.png')
     plt.show()
 
 
