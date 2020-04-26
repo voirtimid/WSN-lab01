@@ -25,7 +25,7 @@ def scatter_plot(data1, label):
     plt.ylabel('Humidity thresholds')
     plt.colorbar()
     plt.savefig(f'plots/{label}.png')
-    # plt.show()
+    plt.show()
 
 
 def dual_prediction_schema(data1, data2, moving_average_factor, thresholds1, thresholds2):
